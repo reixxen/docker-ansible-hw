@@ -1,3 +1,9 @@
+## Запуск playbook
+ansible-playbook get_system_info.yml
+
+## Запуск обычного скрипта
+./get_system_info.sh
+
 Использую модуль setup и его опции filter, получить следующие параметры от вашей машины:
 
 Ip адрес
