@@ -1,25 +1,25 @@
-# Nginx Dockerfile
+# Nginx Dockerfile Network
 
-- Создать файл index.html с любым содержимом на выбор
-- Написать Dockerfile базирующийся на nginx, в который положить файл в конфиге в уроке в /etc/nginx/conf.d/default.conf. Сам html файл положить в /usr/share/nginx/html:
+- Предыдущую image дополнить expose с 80 портом
+- Запустить контейнер, прокинув порт 8081 наружу с маппингом на 80 порт внутри
+- Сделать curl с host машину на порт 8081 и убедиться, что html возвращается.
+
+## В репозитории должен быть изменённый Dockerfile
+
+- Сборка образа
 
 ```bash
-server {
-    listen 80;
-    root /usr/share/nginx/html;
-
-    location / {
-        index index.html index.htm;
-        try_files $uri $uri/ /index.html =404;
-    }
-
-    error_page 404 /index.html;
-    location = /404 {
-        return 404;
-    }
-}
+docker build -t my-nginx-app .
 ```
 
-Запустить контейнер, зайти в него и сделать curl на 80 порт, получив в ответ файл
+- Запуск контейнера с пробросом порта 8081:
 
-В репозитории должен быть Dockerfile для сборки
+```bash
+docker run -d -p 8081:80 --name my-nginx-container my-nginx-app
+```
+
+- Проверка работы с хостовой машины:
+
+```bash
+curl http://localhost:8081
+```
