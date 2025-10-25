@@ -1,4 +1,9 @@
 ---
+- name: Load vault variables
+  ansible.builtin.include_vars:
+    file: "vault.yml"
+  tags: always
+
 - name: Ensure docker group exists
   ansible.builtin.group:
     name: docker
