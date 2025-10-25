@@ -1,0 +1,48 @@
+---
+- name: Load vault variables
+  ansible.builtin.include_vars:
+    file: "vault.yml"
+  tags: always
+
+- name: Ensure docker group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Create users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    password: "{{ user_passwords[item.name] }}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
+    state: present
+    create_home: yes
+  loop: "{{ users }}"
+
+- name: Generate SSH key for user
+  ansible.builtin.openssh_keypair:
+    path: "/home/{{ item.name }}/.ssh/id_rsa"
+    type: rsa
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: "0600"
+  loop: "{{ users }}"
+
+- name: Ensure .ssh directory has correct permissions
+  ansible.builtin.file:
+    path: "/home/{{ item.name }}/.ssh"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: "0700"
+    state: directory
+  loop: "{{ users }}"
+
+- name: Copy public key to authorized_keys
+  ansible.builtin.copy:
+    src: "/home/{{ item.name }}/.ssh/id_rsa.pub"
+    dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: "0600"
+  loop: "{{ users }}"
