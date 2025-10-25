@@ -1,8 +1,9 @@
-Создать файл index.html с любым содержимом на выбор
+# Nginx Dockerfile
 
-Написать Dockerfile базирующийся на nginx, в который положить файл в конфиге в уроке в /etc/nginx/conf.d/default.conf. Сам html файл положить в /usr/share/nginx/html:
+- Создать файл index.html с любым содержимом на выбор
+- Написать Dockerfile базирующийся на nginx, в который положить файл в конфиге в уроке в /etc/nginx/conf.d/default.conf. Сам html файл положить в /usr/share/nginx/html:
 
-
+```bash
 server {
     listen 80;
     root /usr/share/nginx/html;
@@ -17,8 +18,8 @@ server {
         return 404;
     }
 }
-
+```
 
 Запустить контейнер, зайти в него и сделать curl на 80 порт, получив в ответ файл
 
-В репозитории должен быть Dockerfile для сборки.
+В репозитории должен быть Dockerfile для сборки
