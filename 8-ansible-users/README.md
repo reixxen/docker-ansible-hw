@@ -16,7 +16,7 @@
 пароль указан в файле .vault_pwd
 
 ```bash
-ansible-playbook -i inventory playbook.yml --ask-vault-pass -K
+ansible-playbook -i inventory playbook.yml --vault-id test@prompt -K
 ```
 
 или
