@@ -39,7 +39,7 @@ services:
           - "node.labels.pg == true"
 
 configs:
-  config:
+  nginx_config:
     external: false
 
 secrets:
