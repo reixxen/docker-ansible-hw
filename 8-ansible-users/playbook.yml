@@ -1,0 +1,5 @@
+---
+- hosts: demo
+  become: yes
+  roles:
+    - create_users
