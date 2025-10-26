@@ -1,6 +1,0 @@
----
-# Пароли для пользователей определены в vars/vault.yml (зашифровано ansible-vault)
-users:
-  - name: alice
-  - name: bob
-  - name: charlie
